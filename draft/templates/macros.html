@@ -1,0 +1,25 @@
+{% macro render_player(player) %}
+{% if player.batter_hr is number %}
+            <tr>
+                <td>{{ player.name}}</td>
+                <td>{{ player.batter_avg}}</td>
+                <td>{{ player.batter_obp}}</td>
+                <td>{{ player.batter_hr}}</td>
+                <td>{{ player.batter_rbi}}</td>
+                <td>{{ player.batter_r}}</td>
+                <td>{{ player.batter_sb}}</td>
+                <td>{{ player.fantasy_points }}</td>
+            </tr>
+{% else %}
+            <tr>
+                <td>{{ player.name}}</td>
+                <td>{{ player.pitcher_era}}</td>
+                <td>{{ player.pitcher_whip}}</td>
+                <td>{{ player.pitcher_w}}</td>
+                <td>{{ player.pitcher_l}}</td>
+                <td>{{ player.pitcher_k}}</td>
+                <td>{{ player.pitcher_s}}</td>
+                <td>{{ player.fantasy_points }}</td>
+            </tr>
+{% endif %}
+{% endmacro %}

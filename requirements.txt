@@ -1,0 +1,6 @@
+flask
+sqlalchemy
+psycopg2
+xlrd
+flask-script
+flask-migrate

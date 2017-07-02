@@ -1,0 +1,24 @@
+{% import "macros.html" as macros %}
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-10">
+        <table>
+            <tr>
+                <td>Name</td>
+                <td>AVG<br>ERA</td>
+                <td>OBP<br>WHIP</td>
+                <td>HR<br>W</td>
+                <td>RBI<br>L</td>
+                <td>R<br>K</td>
+                <td>SB<br>SV</td>
+                <td>Projected Points</td>
+            </tr>
+{% for player in players %}
+{{ macros.render_player(player) }}
+{% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}
