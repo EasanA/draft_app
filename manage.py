@@ -18,7 +18,11 @@ def seed():
     sheet1 = book.sheet_by_name("Projection-H")
     
     for j in range(2,32):
-        batter= Player(
+        if sheet1.cell(j, 2).ctype == xlrd.XL_CELL_ERROR:
+            batter = Player(
+                name = sheet1.cell(j,0).value)
+        else:
+            batter= Player(
             name = sheet1.cell(j,0).value,
             batter_pa = sheet1.cell(j,2).value,
             batter_ab = sheet1.cell(j,3).value,
@@ -37,6 +41,11 @@ def seed():
             batter_obp = round(sheet1.cell(j,16).value,4),
             batter_slg = round(sheet1.cell(j,17).value,4),
             batter_ops = round(sheet1.cell(j,18).value,4),
+            batter_errors_per_pa = round(sheet1.cell(j,190).value,4),
+            batter_gidp_per_pa = round(sheet1.cell(j,191).value,4), 
+            batter_hbp_per_pa = round(sheet1.cell(j,193).value,4),
+            batter_xbh = sheet1.cell(j,7).value +  sheet1.cell(j,8).value +
+            sheet1.cell(j,9).value,
         )
         session.add(batter)
         session.commit()
@@ -44,23 +53,31 @@ def seed():
     sheet2 = book.sheet_by_name("Projection-P")
     
     for j in range(2,32):
-        pitcher = Player(
-            name = sheet2.cell(j,0).value,
-            pitcher_w = round(sheet2.cell(j,2).value,4),
-            pitcher_l = round(sheet2.cell(j,3).value,4),
-            pitcher_ip = round(sheet2.cell(j,4).value,4),
-            pitcher_hit = round(sheet2.cell(j,5).value,4),
-            pitcher_bb = round(sheet2.cell(j,6).value,4),
-            pitcher_k = round(sheet2.cell(j,7).value,4),
-            pitcher_er = round(sheet2.cell(j,8).value,4),
-            pitcher_s = round(sheet2.cell(j,9).value,2),
-            pitcher_era = round(sheet2.cell(j,10).value,4),
-            pitcher_whip = round(sheet2.cell(j,11).value,4),
-            pitcher_k9 = round(sheet2.cell(j,12).value,4),
-            pitcher_qs =sheet2.cell(j,13).value,
-            pitcher_gs = round(sheet2.cell(j,14).value,4),
-            pitcher_g = round(sheet2.cell(j,15).value,4),
-            pitcher_hra = round(sheet2.cell(j,16).value,4),
+        if sheet2.cell(j, 2).ctype == xlrd.XL_CELL_ERROR:
+            pitcher = Player(
+                name = sheet2.cell(j,0).value)
+        else:
+            pitcher = Player(
+                name = sheet2.cell(j,0).value,
+                pitcher_w = round(sheet2.cell(j,2).value,4),
+                pitcher_l = round(sheet2.cell(j,3).value,4),
+                pitcher_ip = round(sheet2.cell(j,4).value,4),
+                pitcher_hit = round(sheet2.cell(j,5).value,4),
+                pitcher_bb = round(sheet2.cell(j,6).value,4),
+                pitcher_k = round(sheet2.cell(j,7).value,4),
+                pitcher_er = round(sheet2.cell(j,8).value,4),
+                pitcher_s = round(sheet2.cell(j,9).value,2),
+                pitcher_era = round(sheet2.cell(j,10).value,4),
+                pitcher_whip = round(sheet2.cell(j,11).value,4),
+                pitcher_k9 = round(sheet2.cell(j,12).value,4),
+                pitcher_qs =sheet2.cell(j,13).value,
+                pitcher_gs = round(sheet2.cell(j,14).value,4),
+                pitcher_g = round(sheet2.cell(j,15).value,4),
+                pitcher_hra = round(sheet2.cell(j,16).value,4),
+                pitcher_cg_per_gs = round(sheet2.cell(j,172).value,4),
+                pitcher_shutout_per_gs = round(sheet2.cell(j,173).value,4),
+                pitcher_hold = sheet2.cell(j,170).value,
+                pitcher_bs = sheet2.cell(j,177).value,
         )
         session.add(pitcher)
         session.commit()

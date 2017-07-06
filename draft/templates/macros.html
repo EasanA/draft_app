@@ -1,5 +1,5 @@
 {% macro render_player(player) %}
-{% if player.batter_hr is number %}
+{% if player.batter_hr > 0 %}
             <tr>
                 <td>{{ player.name}}</td>
                 <td>{{ player.batter_avg}}</td>
