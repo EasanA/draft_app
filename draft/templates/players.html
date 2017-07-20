@@ -1,18 +1,18 @@
 {% import "macros.html" as macros %}
 {% extends "base.html" %}
 {% block content %}
+<h1>Projected Points</h1>
 <div class="row">
-    <div class="col-md-10">
-        <table>
+        <table class="table table-hover">
             <tr>
-                <td>Name</td>
-                <td>AVG<br>ERA</td>
-                <td>OBP<br>WHIP</td>
-                <td>HR<br>W</td>
-                <td>RBI<br>L</td>
-                <td>R<br>K</td>
-                <td>SB<br>SV</td>
-                <td>Projected Points</td>
+                <th>Name</th>
+                <th>AVG<br>ERA</th>
+                <th>OBP<br>WHIP</th>
+                <th>HR<br>W</th>
+                <th>RBI<br>L</th>
+                <th>R<br>K</th>
+                <th>SB<br>SV</th>
+                <th>Projected Points</th>
             </tr>
 {% for player in players %}
 {{ macros.render_player(player) }}

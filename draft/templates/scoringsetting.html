@@ -1,0 +1,317 @@
+{# how to set default values, and how to make one submit button for both forms, lining up #} {% import "macros.html" as macros %} {% extends "base.html" %} {% block content %}
+<div class="row">
+    <div class="col-md-10">
+        <form role="form" method="POST">
+            <div class="form-inline">
+                <table class="table">
+                    <tr>
+                        <th>
+                            <h3>Scoring: Hitters</h3>
+                        </th>
+                        <th>
+                            <h3>Scoring: Pitchers</h3>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label for="title">PA:</label> 
+                                {% if score is none %}
+                                    <input type="text" class="form-control" id="batter_pa" name="batter_pa" value="0" required> 
+                                {% else %}
+                                    <input type="text" class="form-control" id="batter_pa" name="batter_pa" value="{{ score.batter_pa }}" required> 
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">AB:</label> 
+                                {% if score is none %}
+                                    <input type="text" class="form-control" id="batter_ab" name="batter_ab" value="0" required> 
+                                {% else %}
+                                    <input type="text" class="form-control" id="batter_ab" name="batter_ab" value="{{ score.batter_ab }}" required> 
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">Hit:</label> 
+                                {% if score is none %}
+                                    <input type="text" class="form-control" id="batter_hit" name="batter_hit" value="0" required> 
+                                {% else %}
+                                    <input type="text" class="form-control" id="batter_hit" name="batter_hit" value="{{score.batter_hit}}" required> 
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">Single:</label> 
+                                {% if score is none %}
+                                    <input type="text" class="form-control" id="batter_single" name="batter_single" value="1" required> 
+                                {% else %}
+                                    <input type="text" class="form-control" id="batter_single" name="batter_single" value="{{ score.batter_single}}" required> 
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">Double:</label>
+                                {% if score is none %}
+                                    <input type="text" class="form-control" id="batter_double" name="batter_double" value="2" required>
+                                {% else %}
+                                    <input type="text" class="form-control" id="batter_double" name="batter_double" value="{{ score.batter_double }}" required>
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">Triple:</label>
+                                {% if score is none %}
+                                    <input type="text" class="form-control" id="batter_triple" name="batter_triple" value="3" required>
+                                {% else %}
+                                    <input type="text" class="form-control" id="batter_triple" name="batter_triple" value="{{ score.batter_triple}}" required>
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">HR:</label>
+                                {% if score is none %}
+                                <input type="text" class="form-control" id="batter_hr" name="batter_hr" value="5" required>
+                                {% else %}
+                                <input type="text" class="form-control" id="batter_hr" name="batter_hr" value="{{ score.batter_hr}}" required>
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">BB:</label>
+                                {% if score is none %}
+                                <input type="text" class="form-control" id="batter_bb" name="batter_bb" value="1" required>
+                                {% else %}
+                                <input type="text" class="form-control" id="batter_bb" name="batter_bb" value="{{ score.batter_bb}}" required>
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">SB:</label>
+                                {% if score is none %}
+                                <input type="text" class="form-control" id="batter_sb" name="batter_sb" value="2" required>
+                                {% else %}
+                                <input type="text" class="form-control" id="batter_sb" name="batter_sb" value="{{score.batter_sb}}" required>
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">CS:</label>
+                                {% if score is none %}
+                                <input type="text" class="form-control" id="batter_cs" name="batter_cs" value="-1" required>
+                                {% else %}
+                                <input type="text" class="form-control" id="batter_cs" name="batter_cs" value="{{score.batter_cs}}" required>
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">K:</label>
+                                {% if score is none %}
+                                <input type="text" class="form-control" id="batter_k" name="batter_k" value="-1" required>
+                                {% else %}
+                                <input type="text" class="form-control" id="batter_k" name="batter_k" value="{{score.batter_k}}" required>
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">R:</label>
+                                {% if score is none %}
+                                <input type="text" class="form-control" id="batter_r" name="batter_r" value="1" required>
+                                {% else %}
+                                <input type="text" class="form-control" id="batter_r" name="batter_r" value="{{score.batter_r}}" required>
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">RBI:</label>
+                                {% if score is none %}
+                                <input type="text" class="form-control" id="batter_rbi" name="batter_rbi" value="1" required>
+                                {% else %}
+                                <input type="text" class="form-control" id="batter_rbi" name="batter_rbi" value="{{score.batter_rbi}}" required>
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">Error:</label>
+                                {% if score is none %}
+                                <input type="text" class="form-control" id="batter_errors" name="batter_errors" value="-1" required>
+                                {% else %}
+                                <input type="text" class="form-control" id="batter_errors" name="batter_errors" value="{{score.batter_errors}}" required>
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">GIDP:</label>
+                                {% if score is none %}
+                                <input type="text" class="form-control" id="batter_gidp" name="batter_gidp" value="-1" required>
+                                {% else %}
+                                <input type="text" class="form-control" id="batter_gidp" name="batter_gidp" value="{{score.batter_gidp}}" required>
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">HBP:</label>
+                                {% if score is none %}
+                                <input type="text" class="form-control" id="batter_hbp" name="batter_hbp" value="1" required>
+                                {% else %}
+                                <input type="text" class="form-control" id="batter_hbp" name="batter_hbp" value="{{score.batter_hbp}}" required>
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">XBH:</label>
+                                {% if score is none %}
+                                <input type="text" class="form-control" id="batter_xbh" name="batter_xbh" value="0" required>
+                                {% else %}
+                                <input type="text" class="form-control" id="batter_xbh" name="batter_xbh" value="{{score.batter_xbh}}" required>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <label for="title">Win:</label> 
+                                {% if score is none %}
+                                    <input type="text" class="form-control" id="pitcher_w" name="pitcher_w" value="5" required> 
+                                {% else %}
+                                    <input type="text" class="form-control" id="pitcher_w" name="pitcher_w" value="{{ score.pitcher_w }}" required> 
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">Loss:</label> 
+                                {% if score is none %}
+                                    <input type="text" class="form-control" id="pitcher_l" name="pitcher_l" value="-5" required> 
+                                {% else %}
+                                    <input type="text" class="form-control" id="pitcher_l" name="pitcher_l" value="{{ score.pitcher_l }}" required> 
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">IP:</label> 
+                                {% if score is none %}
+                                    <input type="text" class="form-control" id="pitcher_ip" name="pitcher_ip" value="1.5" required> 
+                                {% else %}
+                                    <input type="text" class="form-control" id="pitcher_ip" name="pitcher_ip" value="{{ score.pitcher_ip }}" required> 
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">HA:</label> 
+                                {% if score is none %}
+                                    <input type="text" class="form-control" id="pitcher_hit" name="pitcher_hit" value="-0.5" required> 
+                                {% else %}
+                                    <input type="text" class="form-control" id="pitcher_hit" name="pitcher_hit" value="{{ score.pitcher_hit }}" required> 
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">BB:</label> 
+                                {% if score is none %}
+                                    <input type="text" class="form-control" id="pitcher_bb" name="pitcher_bb" value="-1" required> 
+                                {% else %}
+                                    <input type="text" class="form-control" id="pitcher_bb" name="pitcher_bb" value="{{ score.pitcher_bb }}" required> 
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">K:</label> 
+                                {% if score is none %}
+                                    <input type="text" class="form-control" id="pitcher_k" name="pitcher_k" value="1" required> 
+                                {% else %}
+                                    <input type="text" class="form-control" id="pitcher_k" name="pitcher_k" value="{{ score.pitcher_k }}" required> 
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">ER:</label> 
+                                {% if score is none %}
+                                    <input type="text" class="form-control" id="pitcher_er" name="pitcher_er" value="-1" required> 
+                                {% else %}
+                                    <input type="text" class="form-control" id="pitcher_er" name="pitcher_er" value="{{ score.pitcher_er }}" required> 
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">Save:</label> 
+                                {% if score is none %}
+                                    <input type="text" class="form-control" id="pitcher_s" name="pitcher_s" value="10" required> 
+                                {% else %}
+                                    <input type="text" class="form-control" id="pitcher_s" name="pitcher_s" value="{{ score.pitcher_s }}" required> 
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">QS:</label> 
+                                {% if score is none %}
+                                    <input type="text" class="form-control" id="pitcher_qs" name="pitcher_qs" value="10" required> 
+                                {% else %}
+                                    <input type="text" class="form-control" id="pitcher_qs" name="pitcher_qs" value="{{ score.pitcher_qs }}" required> 
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">CG:</label> 
+                                {% if score is none %}
+                                    <input type="text" class="form-control" id="pitcher_cg" name="pitcher_cg" value="10" required> 
+                                {% else %}
+                                    <input type="text" class="form-control" id="pitcher_cg" name="pitcher_cg" value="{{ score.pitcher_cg }}" required> 
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">Shutout:</label> 
+                                {% if score is none %}
+                                    <input type="text" class="form-control" id="pitcher_shutout" name="pitcher_shutout" value="10" required> 
+                                {% else %}
+                                    <input type="text" class="form-control" id="pitcher_shutout" name="pitcher_shutout" value="{{ score.pitcher_shutout }}" required> 
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">Hold:</label> 
+                                {% if score is none %}
+                                    <input type="text" class="form-control" id="pitcher_hold" name="pitcher_hold" value="0" required> 
+                                {% else %}
+                                    <input type="text" class="form-control" id="pitcher_hold" name="pitcher_hold" value="{{ score.pitcher_hold }}" required> 
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">GS:</label> 
+                                {% if score is none %}
+                                    <input type="text" class="form-control" id="pitcher_gs" name="pitcher_gs" value="0" required> 
+                                {% else %}
+                                    <input type="text" class="form-control" id="pitcher_gs" name="pitcher_gs" value="{{ score.pitcher_gs }}" required> 
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">HRA:</label> 
+                                {% if score is none %}
+                                    <input type="text" class="form-control" id="pitcher_hra" name="pitcher_hra" value="0" required> 
+                                {% else %}
+                                    <input type="text" class="form-control" id="pitcher_hra" name="pitcher_hra" value="{{ score.pitcher_hra }}" required> 
+                                {% endif %}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">BS:</label> 
+                                {% if score is none %}
+                                    <input type="text" class="form-control" id="pitcher_bs" name="pitcher_bs" value="-5" required> 
+                                {% else %}
+                                    <input type="text" class="form-control" id="pitcher_bs" name="pitcher_bs" value="{{ score.pitcher_bs }}" required> 
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <button type="submit" class="btn btn-default btn-lg">Submit</button>
+                        </td>
+                    </tr>
+                    </<table>
+        </form>
+        </div>
+    </div>
+
+    {% endblock %}

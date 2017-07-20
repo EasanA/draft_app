@@ -3,7 +3,8 @@ div.metadata {
     font-size: 1.5em;
 }
 
-table, th, td, tr {
-    border: 1px solid black;
-    border-spacing: 5px;
+label { 
+    display: block; 
+    width: 6em; 
+    float: left; 
 }

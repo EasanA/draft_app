@@ -17,7 +17,7 @@ def seed():
     book = xlrd.open_workbook("2017PointsDraftCheatsheetv2.55.xlsm")
     sheet1 = book.sheet_by_name("Projection-H")
     
-    for j in range(2,32):
+    for j in range(2, sheet1.nrows):
         if sheet1.cell(j, 2).ctype == xlrd.XL_CELL_ERROR:
             batter = Player(
                 name = sheet1.cell(j,0).value)
@@ -41,9 +41,9 @@ def seed():
             batter_obp = round(sheet1.cell(j,16).value,4),
             batter_slg = round(sheet1.cell(j,17).value,4),
             batter_ops = round(sheet1.cell(j,18).value,4),
-            batter_errors_per_pa = round(sheet1.cell(j,190).value,4),
-            batter_gidp_per_pa = round(sheet1.cell(j,191).value,4), 
-            batter_hbp_per_pa = round(sheet1.cell(j,193).value,4),
+            batter_errors_per_pa = round(sheet1.cell(j,190).value,6),
+            batter_gidp_per_pa = round(sheet1.cell(j,191).value,6), 
+            batter_hbp_per_pa = round(sheet1.cell(j,193).value,6),
             batter_xbh = sheet1.cell(j,7).value +  sheet1.cell(j,8).value +
             sheet1.cell(j,9).value,
         )
@@ -52,7 +52,7 @@ def seed():
     
     sheet2 = book.sheet_by_name("Projection-P")
     
-    for j in range(2,32):
+    for j in range(2, sheet2.nrows):
         if sheet2.cell(j, 2).ctype == xlrd.XL_CELL_ERROR:
             pitcher = Player(
                 name = sheet2.cell(j,0).value)
