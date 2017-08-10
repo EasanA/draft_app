@@ -3,14 +3,14 @@ from flask import render_template
 from . import app
 from .database import session, Player, Scoring
 
-@app.route("/")
-def player():
+@app.route("/points")
+def points():
     players = session.query(Player).all()
     score = session.query(Scoring).all()[0]
     for p in players:
         p.calculate_score(score)
     sorted_players = sorted(players, key = lambda player: player.fantasy_points, reverse=True)     
-    return render_template("players.html",
+    return render_template("points.html",
         players=sorted_players
     )
     
@@ -97,3 +97,92 @@ def add_socring():
     session.add(score)
     session.commit()
     return redirect(url_for('player'))
+    
+@app.route("/glossary")
+def glossary():
+    return render_template("glossary.html"
+    )
+    
+@app.route("/")
+def homepage():
+    return render_template("homepage.html"
+    )
+    
+@app.route("/position/<position>")
+def positional(position):
+    if position in ['SP', 'RP', 'C', '1B','2B','3B','SS', 'OF','DH']:
+        players = session.query(Player).filter_by(position=position).all()
+        score = session.query(Scoring).all()[0]
+        for p in players:
+            p.calculate_score(score)
+        sorted_players = sorted(players, key = lambda player: player.fantasy_points, reverse=True)
+    elif position == 'CI':
+        players = session.query(Player).filter(Player.position.in_ (['1B','3B'])).all()
+        score = session.query(Scoring).all()[0]
+        for p in players:
+            p.calculate_score(score)
+        sorted_players = sorted(players, key = lambda player: player.fantasy_points, reverse=True)
+    elif position == 'MI':
+        players = session.query(Player).filter(Player.position.in_ (['2B','SS'])).all()
+        score = session.query(Scoring).all()[0]
+        for p in players:
+            p.calculate_score(score)
+        sorted_players = sorted(players, key = lambda player: player.fantasy_points, reverse=True)
+    elif position == 'IF':
+        players = session.query(Player).filter(Player.position.in_ (['1B','2B','3B','SS'])).all()
+        score = session.query(Scoring).all()[0]
+        for p in players:
+            p.calculate_score(score)
+        sorted_players = sorted(players, key = lambda player: player.fantasy_points, reverse=True)
+    elif position == 'U':
+        players = session.query(Player).filter(Player.position.in_ (['C', '1B','2B','3B','SS', 'OF','DH'])).all()
+        score = session.query(Scoring).all()[0]
+        for p in players:
+            p.calculate_score(score)
+        sorted_players = sorted(players, key = lambda player: player.fantasy_points, reverse=True)
+    elif position == 'P':
+        players = session.query(Player).filter(Player.position.in_ (['SP', 'RP'])).all()
+        score = session.query(Scoring).all()[0]
+        for p in players:
+            p.calculate_score(score)
+        sorted_players = sorted(players, key = lambda player: player.fantasy_points, reverse=True)
+    else:
+        players = session.query(Player).all()
+        score = session.query(Scoring).all()[0]
+        for p in players:
+            p.calculate_score(score)
+        sorted_players = sorted(players, key = lambda player: player.fantasy_points, reverse=True)
+    return render_template("position.html",
+        players=sorted_players
+    )
+    
+@app.route("/playerpage/<id>")
+def playerpage(id):
+    player = session.query(Player).get(id)
+    score = session.query(Scoring).all()[0]
+    player.calculate_score(score)
+    player.calculate_per_pa()
+    player.calculate_per_ip()
+    return render_template("playerpage.html",
+        player=player
+    )
+    
+@app.route("/", methods=['POST'])
+def search(string):
+    string =request.form["search"]
+    return redirect(url_for('playersearch', string = string))
+
+from sqlalchemy import func
+
+@app.route("/search", methods=['POST'])
+def playerlist():
+    search_string =request.form["search"]
+    print(search_string)
+    players = session.query(Player).filter(func.lower(Player.name).contains(func.lower(search_string))).all()
+    score = session.query(Scoring).all()[0]
+    for p in players:
+        p.calculate_score(score)
+    sorted_players = sorted(players, key = lambda player: player.fantasy_points, reverse=True)     
+    return render_template("playersearch.html",
+        players=sorted_players
+    )

@@ -1,0 +1,10 @@
+{% import "macros.html" as macros %}
+{% extends "base.html" %}
+{% block content %}
+<h1>Draft App</h1>
+<h3>Instructions:</h3>
+<h5><a href="{{ url_for('scoring') }}">Settings:</a></h5>
+<p>Please input the scoring settings for your Points league. A default league scoring is prepopulated.</p>
+<h3>Credits:</h3>
+<p>This draft app is based off the <a href="http://mrcheatsheet.com/">Mr.CheatSheet's excel draft helper</a>.</p>
+{% endblock %}

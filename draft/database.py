@@ -62,20 +62,22 @@ class Player(Base):
     pitcher_hold = Column(Float, default = 0)
     pitcher_bs = Column(Float, default = 0)
     fantasy_points = 0
+    fpts_per_pa = 0
+    fpts_per_ip = 0
         
     def calculate_score(self, score):
-            self.fantasy_points = round((self.batter_pa * score.batter_pa + 
-            self.batter_ab * score.batter_ab + self.batter_hit * 
-            score.batter_hit + self.batter_single * score.batter_single + 
-            self.batter_double * score.batter_double + self.batter_triple * 
-            score.batter_triple + self.batter_hr * score.batter_hr +
-            self.batter_bb * score.batter_bb + self.batter_sb * score.batter_sb 
-            + self.batter_cs * score.batter_cs + self.batter_k * score.batter_k 
-            + self.batter_r * score.batter_r + self.batter_rbi * 
-            score.batter_rbi + self.batter_errors_per_pa * self.batter_pa * 
-            score.batter_errors + self.batter_gidp_per_pa * self.batter_pa * 
-            score.batter_gidp + self.batter_hbp_per_pa *self.batter_pa * 
-            score.batter_hbp + self.batter_xbh * score.batter_xbh + 
+            self.fantasy_points = round(((self.batter_pa * score.batter_pa) + 
+            (self.batter_ab * score.batter_ab) + (self.batter_hit * 
+            score.batter_hit) + (self.batter_single * score.batter_single) + 
+            (self.batter_double * score.batter_double) + (self.batter_triple * 
+            score.batter_triple) + (self.batter_hr * score.batter_hr) +
+            (self.batter_bb * score.batter_bb) + (self.batter_sb * score.batter_sb) 
+            + (self.batter_cs * score.batter_cs) + (self.batter_k * score.batter_k) 
+            + (self.batter_r * score.batter_r) + (self.batter_rbi * 
+            score.batter_rbi) + (self.batter_errors_per_pa * self.batter_pa * 
+            score.batter_errors) + (self.batter_gidp_per_pa * self.batter_pa * 
+            score.batter_gidp) + (self.batter_hbp_per_pa * self.batter_pa * 
+            score.batter_hbp) + (self.batter_xbh * score.batter_xbh) + 
             self.pitcher_w * score.pitcher_w + self.pitcher_l * score.pitcher_l 
             + self.pitcher_ip *score.pitcher_ip + self.pitcher_hit * 
             score.pitcher_hit + self.pitcher_bb * score.pitcher_bb + 
@@ -83,10 +85,18 @@ class Player(Base):
             score.pitcher_er + self.pitcher_s * score.pitcher_s + 
             self.pitcher_qs * score.pitcher_qs + self.pitcher_gs * 
             score.pitcher_gs + self.pitcher_hra * score.pitcher_hra + 
-            self.pitcher_cg_per_gs * self.pitcher_gs * score.pitcher_cg + 
-            self.pitcher_shutout_per_gs * self.pitcher_gs * 
+            self.pitcher_cg_per_gs * score.pitcher_cg + 
+            self.pitcher_shutout_per_gs * 
             score.pitcher_shutout + self.pitcher_hold * score.pitcher_hold + 
-            self.pitcher_bs * score.pitcher_bs ),1)
+            self.pitcher_bs * score.pitcher_bs ),2)
+            
+    def calculate_per_pa(self):
+        if self.batter_pa != 0:
+            self.fpts_per_pa = self.fantasy_points / self.batter_pa
+    def calculate_per_ip(self):
+        if self.pitcher_ip != 0:
+            self.fpts_per_ip = self.fantasy_points / self.pitcher_ip
+    
             
 class Scoring(Base):
     __tablename__ = 'score'
@@ -126,6 +136,5 @@ class Scoring(Base):
     pitcher_gs = Column(Float, default = 0)
     pitcher_hra = Column(Float, default = 0)
     pitcher_bs = Column(Float, default = 0)
-    
-   
+
 Base.metadata.create_all(engine)

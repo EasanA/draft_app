@@ -1,25 +1,22 @@
-{% macro render_player(player) %}
+{% macro render_players(player) %}
+            <tr>
+                <td><a href="{{ url_for('playerpage', id = player.id) }}">{{ player.name}}</a></td>
+                <td><a href="{{ url_for('positional', position = player.position) }}">{{ player.position}}</a></td>
 {% if player.batter_hr > 0 %}
-            <tr>
-                <td>{{ player.name}}</td>
-                <td>{{ player.batter_avg}}</td>
-                <td>{{ player.batter_obp}}</td>
-                <td>{{ player.batter_hr}}</td>
-                <td>{{ player.batter_rbi}}</td>
-                <td>{{ player.batter_r}}</td>
-                <td>{{ player.batter_sb}}</td>
-                <td>{{ player.fantasy_points }}</td>
-            </tr>
+                <td>{{ player.batter_avg | round(3,'common')}}</td>
+                <td>{{ player.batter_obp | round(3,'common')}}</td>
+                <td>{{ player.batter_hr | round}}</td>
+                <td>{{ player.batter_rbi | round}}</td>
+                <td>{{ player.batter_r | round}}</td>
+                <td>{{ player.batter_sb | round}}</td>
 {% else %}
-            <tr>
-                <td>{{ player.name}}</td>
-                <td>{{ player.pitcher_era}}</td>
-                <td>{{ player.pitcher_whip}}</td>
-                <td>{{ player.pitcher_w}}</td>
-                <td>{{ player.pitcher_l}}</td>
-                <td>{{ player.pitcher_k}}</td>
-                <td>{{ player.pitcher_s}}</td>
-                <td>{{ player.fantasy_points }}</td>
-            </tr>
+                <td>{{ player.pitcher_era | round(2,'common')}}</td>
+                <td>{{ player.pitcher_whip | round(2,'common')}}</td>
+                <td>{{ player.pitcher_w | round}}</td>
+                <td>{{ player.pitcher_l | round}}</td>
+                <td>{{ player.pitcher_k | round}}</td>
+                <td>{{ player.pitcher_s | round}}</td>
 {% endif %}
+                <td>{{ player.fantasy_points | round}}</td>
+            </tr>
 {% endmacro %}

@@ -1,0 +1,51 @@
+{% import "macros.html" as macros %}
+{% extends "base.html" %}
+{% block content %}
+<h1>Projected Points -
+<div class="btn-group">
+  <button type="button" class="btn btn-default">Position</button>
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="{{ url_for('positional', position = 'C') }}">C</a></li>
+    <li><a href="{{ url_for('positional', position = '1B') }}">1B</a></li>
+    <li><a href="{{ url_for('positional', position = '2B') }}">2B</a></li>
+    <li><a href="{{ url_for('positional', position = '3B') }}">3B</a></li>
+    <li><a href="{{ url_for('positional', position = 'SS') }}">SS</a></li>
+    <li><a href="{{ url_for('positional', position = 'OF') }}">OF</a></li>
+    <li><a href="{{ url_for('positional', position = 'DH') }}">DH</a></li>
+    <li><a href="{{ url_for('positional', position = 'CI') }}">CI</a></li>
+    <li><a href="{{ url_for('positional', position = 'MI') }}">MI</a></li>
+    <li><a href="{{ url_for('positional', position = 'IF') }}">IF</a></li>
+    <li><a href="{{ url_for('positional', position = 'U') }}">U</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="{{ url_for('positional', position = 'SP') }}">SP</a></li>
+    <li><a href="{{ url_for('positional', position = 'RP') }}">RP</a></li>
+    <li><a href="{{ url_for('positional', position = 'P') }}">P</a></li>
+  </ul>
+</div>
+</h1>
+<br>
+<div class="row">
+        <table class="table table-hover">
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>AVG<br>ERA</th>
+                <th>OBP<br>WHIP</th>
+                <th>HR<br>W</th>
+                <th>RBI<br>L</th>
+                <th>R<br>K</th>
+                <th>SB<br>SV</th>
+                <th>Projected Points</th>
+            </tr>
+{% for player in players %}
+{{ macros.render_players(player) }}
+{% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}
